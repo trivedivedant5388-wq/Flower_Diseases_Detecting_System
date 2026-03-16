@@ -1,16 +1,79 @@
-# React + Vite
+# FloraScan AI (Flower Disease Detection)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FloraScan AI is a React + Vite web app that analyzes flower images using Google Gemini (Generative Language API), detects possible plant diseases, and renders structured diagnostics.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Upload photo or capture from camera
+- Convert image to base64 and send to Gemini generateContent API
+- Parse AI response (text/JSON) and show disease detection details
+- Fallback raw output for unstructured results
+- Error handling for API key / network issues
 
-## React Compiler
+## 🧠 Core technologies
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React (functional components, hooks)
+- Vite (fast build/dev server)
+- Google Generative Language API (Gemini)
+- Browser APIs: `FileReader`, camera (`getUserMedia`), canvas (`drawImage`), `fetch`
+- Lucide React icon set
 
-## Expanding the ESLint configuration
+## 📁 Main files
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- `src/main.jsx` — app entrypoint and React root
+- `src/App.jsx` — main app logic (image input, camera, API call, result rendering)
+- `src/api.env` — API key environment file (`VITE_GEMINI_API_KEY`)
+- `public/` — static assets
+
+## 🔧 Setup & run locally
+
+1. Clone:
+   ```bash
+   git clone https://github.com/dhruvaparnathi/Flower_Diseases_Detecting_System.git
+   cd Flower_Diseases_Detecting_System
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Set your Gemini API key in `src/api.env`:
+   ```text
+   VITE_GEMINI_API_KEY=AIza...your-key...
+   ```
+4. Start dev server:
+   ```bash
+   npm run dev
+   ```
+5. Open `http://localhost:5173`
+
+## ⚙️ Expected app flow
+
+1. User uploads or captures flower image.
+2. Image is encoded to base64 via `<canvas>`.
+3. App posts to Gemini generateContent endpoint with model `gemini-2.5-flash`.
+4. App receives `candidates[0].content.parts`, extracts text.
+5. If text is JSON, app parses and renders disease fields (plant type, disease, confidence, recommendations). Otherwise plain text output is shown.
+
+## 💡 Troubleshooting
+
+- If you see `VITE_GEMINI_API_KEY not set`, verify `src/api.env` exists and restart the server.
+- If API returns error: check your key, model availability, and quota in Google Cloud.
+- For image parse failures, ensure the upload is a valid image and file is not empty.
+
+## ✅ Deployment
+
+This app can be deployed to static hosts (Netlify, Vercel, GitHub Pages) because it's a client-side React app.
+
+### Example (Vercel)
+1. Connect GitHub repo to Vercel.
+2. Set `VITE_GEMINI_API_KEY` in project environment variables.
+3. Deploy.
+
+## 📌 Notes
+
+- This project is a demo and should not be used as a substitute for certified plant disease diagnostics.
+- For production use, add server-side image security checks and API request limits.
+
+---
+
+If you want, I can also add a quick demo GIF and “How it works” visuals to this README next.
