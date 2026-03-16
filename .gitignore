@@ -8,6 +8,8 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+# Don't commit local env keys
+.env
 dist
 dist-ssr
 *.local

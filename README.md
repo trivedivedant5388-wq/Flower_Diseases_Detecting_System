@@ -36,15 +36,20 @@ FloraScan AI is a React + Vite web app that analyzes flower images using Google 
    ```bash
    npm install
    ```
-3. Set your Gemini API key in `src/api.env`:
+3. Copy `src/api.env` to `.env` and set your key:
+   ```bash
+   copy src\api.env .env
+   ```
+   In `.env`, set:
    ```text
    VITE_GEMINI_API_KEY=AIza...your-key...
    ```
-4. Start dev server:
+4. If you change anything to make the project work, do so locally, then commit your code changes only (do not commit `.env`).
+5. Start dev server:
    ```bash
    npm run dev
    ```
-5. Open `http://localhost:5173`
+6. Open `http://localhost:5173`
 
 ## ⚙️ Expected app flow
 
